@@ -3,7 +3,7 @@
 
 body {
     background-color: #d6d6d6 !important;
-    background-image: url(https://lectortebeo.es/wp-content/uploads/2016/10/Marvel-Cosas-Felices.jpg);
+    background-image: url('https://lectortebeo.es/wp-content/uploads/2016/10/Marvel-Cosas-Felices.jpg');
     background-size: cover;
     background-blend-mode: darken;
 }
@@ -45,7 +45,7 @@ h1 {
     display: block;
     width: 80%;
     margin-left: auto;
-    margin-right: auto; 
+    margin-right: auto;
 }
 
 .hero-entry > span {
@@ -53,7 +53,7 @@ h1 {
     color: #ffffff;
     text-align: center;
     display: block;
-    font-size: 20px; 
+    font-size: 20px;
     font-family: 'Anton', sans-serif;
     background-color: rgba(0,0,0,0.5);
 }

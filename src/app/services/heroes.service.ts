@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Heroe } from './classes/heroe';
+import { Heroe } from '../classes/heroe';
 
 @Injectable()
 export class HeroesService {
@@ -17,7 +17,7 @@ export class HeroesService {
                         "violeta":"#a43de3",
                         "naranjo":"#df5c0f",
                         "verde":"#0ea521"}
-  
+
   public teams = new Map();
 
   constructor(private http: HttpClient) { }

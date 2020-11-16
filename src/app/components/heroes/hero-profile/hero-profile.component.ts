@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Heroe } from '../classes/heroe';
-import { HeroesService } from '../heroes.service';
+import { Heroe } from '../../../classes/heroe';
+import { HeroesService } from '../../../services/heroes.service';
 import { Location } from '@angular/common';
-import { ModalPollComponent } from '../modal-poll/modal-poll.component';
+import { ModalPollComponent } from '../../../shared/modal-poll/modal-poll.component';
 
 @Component({
   selector: 'app-hero-profile',
@@ -31,7 +31,7 @@ export class HeroProfileComponent implements OnInit {
         this.team = this.heroe.teamColor;
       });
     });
-    
+
   }
 
   goBack() {
