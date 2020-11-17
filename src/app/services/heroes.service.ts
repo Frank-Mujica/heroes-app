@@ -27,6 +27,9 @@ export class HeroesService {
   }
 
   getHeroes (nameStartsWith?: string, page?: number) {
+    console.log(nameStartsWith);
+    console.log(page);
+    
     console.log("TEAMS");
     console.log(Array.from(this.teams));
     if (page || page === 0) {
