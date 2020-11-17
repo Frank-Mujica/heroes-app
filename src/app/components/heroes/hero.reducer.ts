@@ -6,7 +6,7 @@ export const initialState = [];
  
 const _heroeReducer = createReducer(
   initialState,
-  on(heroeAction, (state, {texto}) => [...state, texto]),
+  on(heroeAction, (state, {texto}) => [state, texto]),
 );
  
 export function heroeReducer(state, action) {

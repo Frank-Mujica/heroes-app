@@ -4,6 +4,7 @@ import { HeroesService } from '../../../services/heroes.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { heroeAction } from '../hero.actions';
+import { Appstate } from '../../../app.reducer';
 
 @Component({
   selector: 'app-listado-de-heroes',
@@ -17,13 +18,24 @@ export class ListadoDeHeroesComponent implements OnInit {
   // The child component : spinner
   @ViewChild('spi') spinner;
   page: number = 0;
+  public recoveryHero: any;
   /* public heroes: Array<Heroe> = []; */
 
-  constructor(public heroesService: HeroesService, private router:Router, private store: Store) { }
+  constructor(public heroesService: HeroesService, private router:Router, private store: Store<Appstate>) { }
 
   submitSearch() {
-    this.heroesService.resetPager();
+    this.heroesService.resetPager();    
+    this.store.dispatch(heroeAction({texto:this.searchString}));
     this.heroesService.getHeroes(this.searchString);
+  }
+
+  recoverHero(){
+    this.store.subscribe(data=> {
+      console.log('recovery',data.heroe[1]);
+      
+      this.recoveryHero = data.heroe[1];
+      
+    })
   }
 
   prevPage() {
@@ -41,6 +53,7 @@ export class ListadoDeHeroesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.recoverHero();
     this.heroesService.getHeroes();
 
 
