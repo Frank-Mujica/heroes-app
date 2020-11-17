@@ -2,7 +2,7 @@
 <div class="row">
   <form  [formGroup]="form" (ngSubmit)="submitSearch()">
     <div class="form-group col-xs-12">
-      <input formControlName="nombre"  type="text"  name="searchString" class="form-control" id="search" placeholder="Búsqueda de super-héroe"  >
+      <input formControlName="nombre"  type="text"  name="searchString" class="form-control" id="search" placeholder="Búsqueda de super-héroe"  (ngModelChange)="submitSearch()" >
     </div>
   </form>
   <div *ngFor="let heroe of heroesService.heroes; let i = index;" class="col-xs-12 col-sm-6 col-md-3">
