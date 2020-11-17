@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Heroe } from '../../../classes/heroe';
 import { HeroesService } from '../../../services/heroes.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { heroeAction } from '../hero.actions';
 
 @Component({
   selector: 'app-listado-de-heroes',
@@ -17,7 +19,7 @@ export class ListadoDeHeroesComponent implements OnInit {
   page: number = 0;
   /* public heroes: Array<Heroe> = []; */
 
-  constructor(public heroesService: HeroesService, private router:Router) { }
+  constructor(public heroesService: HeroesService, private router:Router, private store: Store) { }
 
   submitSearch() {
     this.heroesService.resetPager();

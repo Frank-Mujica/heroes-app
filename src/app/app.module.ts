@@ -9,6 +9,11 @@ import { HeroesService } from './services/heroes.service';
 import { HeroesModule } from './components/heroes/heroes.module';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+//Ngrx
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { heroeReducer } from './components/heroes/hero.reducer';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,12 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     FormsModule,
     HeroesModule,
-    RouterModule.forRoot([])
+    RouterModule.forRoot([]),
+    BrowserModule, StoreModule.forRoot({ heroe: heroeReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    })
   ],
   providers: [HeroesService],
   bootstrap: [AppComponent]
