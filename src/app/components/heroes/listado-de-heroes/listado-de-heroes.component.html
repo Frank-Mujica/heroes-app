@@ -2,13 +2,14 @@
 <div class="row">
   <form  [formGroup]="form" (ngSubmit)="submitSearch()">
     <div class="form-group col-xs-12">
-      <input formControlName="nombre"  type="text"  name="searchString" class="form-control" id="search" placeholder="Búsqueda de super-héroe"  (ngModelChange)="submitSearch()" >
+      <input formControlName="nombre" type="text" value={{recoveryHero}} name="searchString" class="form-control" id="search" placeholder="Búsqueda de super-héroe"  (ngModelChange)="submitSearch()" >
     </div>
   </form>
   <div *ngFor="let heroe of heroesService.heroes; let i = index;" class="col-xs-12 col-sm-6 col-md-3">
       <!--[routerLink]="'/heroe/' + heroe.id" === (click)="go_to(heroe.id)"-->
     <a (click)="go_to(heroe.id)" class="hero-entry" [style.border-color]="heroesService['group_colors'][heroe.teamColor]" [style.background-image]="'url(' + heroe.thumbnail.path + '.' + heroe.thumbnail.extension + ')'">
-      <span>{{heroe.name}}</span>
+      <span *ngIf="heroe.teamColor" [innerHTML]="heroe.name | bold"></span>
+      <span *ngIf="!heroe.teamColor" [innerHTML]="heroe.name"></span>
     </a>
   </div>
   <div class="paginator col-xs-12">

@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
-  // { path: 'heroes', pathMatch: 'full', redirectTo: 'listado-heroes'},
   { path: 'component', component: AppComponent },
   { path: '', pathMatch: 'full', redirectTo: 'listado-heroes'},
   { path: '',  loadChildren: './components/heroes/heroes.module#HeroesModule' },

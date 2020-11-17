@@ -17,7 +17,7 @@ export class HeroProfileComponent implements OnInit {
   public heroe: any;
   public question_modal: string;
   public team:string = "";
-  public heroeName: string;
+  public heroName: string;
 
   constructor(private route: ActivatedRoute, public heroesService: HeroesService, private _location: Location) { }
 
@@ -27,7 +27,7 @@ export class HeroProfileComponent implements OnInit {
       this.heroesService.getHeroe(this.id).subscribe(data => {
         const temp = data.data.results[0];
         this.heroe = new Heroe(temp.id, temp.name, temp.description, temp. modified, temp.thumbnail, temp.resourceURI,this.heroesService.getTeamColor(temp.id));
-        this.heroeName = this.heroe.name;
+        this.heroName = this.heroe.name;
         console.log("Tiene equipo?");
         console.log(this.heroe.teamColor);
         this.team = this.heroe.teamColor;

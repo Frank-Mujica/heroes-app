@@ -32,8 +32,8 @@ export class ListadoDeHeroesComponent implements OnInit {
     });
   }
 
-  submitSearch() {    
-  this.heroesService.resetPager();   
+  submitSearch() {
+  this.heroesService.resetPager();
     this.store.dispatch(heroeAction({texto:this.form.value.nombre}));
     this.heroesService.getHeroes(this.recoveryHero);
   }
@@ -41,19 +41,19 @@ export class ListadoDeHeroesComponent implements OnInit {
   recoverHero(){
     this.store.subscribe(data=> {
       console.log('recovery',data.heroe[1]);
-      
+
       this.recoveryHero = data.heroe[1];
-      
+
     })
   }
 
   prevPage() {
-    this.page--    
+    this.page--
     this.heroesService.getHeroes(this.form.value.nombre, this.page);
   }
 
   nextPage() {
-    this.page++    
+    this.page++
     this.heroesService.getHeroes(this.form.value.nombre, this.page);
   }
 
@@ -64,9 +64,6 @@ export class ListadoDeHeroesComponent implements OnInit {
   ngOnInit() {
     this.recoverHero();
     this.heroesService.getHeroes(this.recoveryHero);
-
-
-
   }
 
 }
