@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { heroeAction } from '../hero.actions';
 import { Appstate } from '../../../app.reducer';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-listado-de-heroes',
@@ -15,18 +16,26 @@ export class ListadoDeHeroesComponent implements OnInit {
 
   public title = 'Tutorial de Angular - Héroes de Marvel';
   public searchString;
-  // The child component : spinner
   @ViewChild('spi') spinner;
   page: number = 0;
   public recoveryHero: any;
-  /* public heroes: Array<Heroe> = []; */
+  form: FormGroup;
 
-  constructor(public heroesService: HeroesService, private router:Router, private store: Store<Appstate>) { }
 
-  submitSearch() {
-    this.heroesService.resetPager();    
-    this.store.dispatch(heroeAction({texto:this.searchString}));
-    this.heroesService.getHeroes(this.searchString);
+  constructor(public heroesService: HeroesService, private router:Router, private store: Store<Appstate>, private fb: FormBuilder) {
+    this.createForm();
+   }
+
+  createForm(){
+    this.form = this.fb.group({
+      nombre: ['', []],
+    });
+  }
+
+  submitSearch() {    
+  this.heroesService.resetPager();   
+    this.store.dispatch(heroeAction({texto:this.form.value.nombre}));
+    this.heroesService.getHeroes(this.recoveryHero);
   }
 
   recoverHero(){
@@ -40,12 +49,12 @@ export class ListadoDeHeroesComponent implements OnInit {
 
   prevPage() {
     this.page--    
-    this.heroesService.getHeroes(this.searchString, this.page);
+    this.heroesService.getHeroes(this.form.value.nombre, this.page);
   }
 
   nextPage() {
     this.page++    
-    this.heroesService.getHeroes(this.searchString, this.page);
+    this.heroesService.getHeroes(this.form.value.nombre, this.page);
   }
 
   go_to(id){
@@ -54,7 +63,7 @@ export class ListadoDeHeroesComponent implements OnInit {
 
   ngOnInit() {
     this.recoverHero();
-    this.heroesService.getHeroes();
+    this.heroesService.getHeroes(this.recoveryHero);
 
 
 
