@@ -7,7 +7,7 @@ import { HeroesRoutingModule } from './heroes-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CapitalizePipe } from 'src/app/pipes/capitalize.pipe';
 import { RouterModule } from '@angular/router';
 
@@ -26,6 +26,7 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class HeroesModule { }

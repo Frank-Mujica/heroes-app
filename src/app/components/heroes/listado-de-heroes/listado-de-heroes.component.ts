@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Heroe } from '../../../classes/heroe';
 import { HeroesService } from '../../../services/heroes.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { heroeAction } from '../hero.actions';
+import { Appstate } from '../../../app.reducer';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-listado-de-heroes',
@@ -12,23 +16,45 @@ export class ListadoDeHeroesComponent implements OnInit {
 
   public title = 'Tutorial de Angular - Héroes de Marvel';
   public searchString;
-  // The child component : spinner
   @ViewChild('spi') spinner;
-  /* public heroes: Array<Heroe> = []; */
+  page: number = 0;
+  public recoveryHero: any;
+  form: FormGroup;
 
-  constructor(public heroesService: HeroesService, private router:Router) { }
 
-  submitSearch() {
-    this.heroesService.resetPager();
-    this.heroesService.getHeroes(this.searchString);
+  constructor(public heroesService: HeroesService, private router:Router, private store: Store<Appstate>, private fb: FormBuilder) {
+    this.createForm();
+   }
+
+  createForm(){
+    this.form = this.fb.group({
+      nombre: ['', []],
+    });
+  }
+
+  submitSearch() {    
+  this.heroesService.resetPager();   
+    this.store.dispatch(heroeAction({texto:this.form.value.nombre}));
+    this.heroesService.getHeroes(this.recoveryHero);
+  }
+
+  recoverHero(){
+    this.store.subscribe(data=> {
+      console.log('recovery',data.heroe[1]);
+      
+      this.recoveryHero = data.heroe[1];
+      
+    })
   }
 
   prevPage() {
-    this.heroesService.getHeroes(this.searchString, this.heroesService.page - 1);
+    this.page--    
+    this.heroesService.getHeroes(this.form.value.nombre, this.page);
   }
 
   nextPage() {
-    this.heroesService.getHeroes(this.searchString, this.heroesService.page + 1);
+    this.page++    
+    this.heroesService.getHeroes(this.form.value.nombre, this.page);
   }
 
   go_to(id){
@@ -36,43 +62,8 @@ export class ListadoDeHeroesComponent implements OnInit {
   }
 
   ngOnInit() {
-    /* this.heroes.push(new Heroe(
-      '1',
-      'chiquitoman',
-      'un man que es chiquito chiquito',
-      new Date(),
-      {
-        'path': 'http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784',
-        'extension': 'jpg'},
-      'http://gateway.marvel.com/v1/public/characters/1011334'
-    ));
-
-    this.heroes.push(new Heroe(
-      '1',
-      'chiquitoman 2',
-      'un man que es chiquito chiquito',
-      new Date(),
-      {
-        'path': 'http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784',
-        'extension': 'jpg'},
-      'http://gateway.marvel.com/v1/public/characters/1011334'
-    ));
-
-    this.heroes.push(new Heroe(
-      '1',
-      'chiquitoman 3',
-      'un man que es chiquito chiquito',
-      new Date(),
-      {
-        'path': 'http://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784',
-        'extension': 'jpg'},
-      'http://gateway.marvel.com/v1/public/characters/1011334'
-    ));
-
-     */
-    //this.spinner.toggle_spinner();
-
-    this.heroesService.getHeroes();
+    this.recoverHero();
+    this.heroesService.getHeroes(this.recoveryHero);
 
 
 
