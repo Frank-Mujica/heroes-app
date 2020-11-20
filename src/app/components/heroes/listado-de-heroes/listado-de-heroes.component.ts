@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { heroeAction } from '../hero.actions';
 import { Appstate } from '../../../app.reducer';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { SpinnerService } from 'src/app/shared/spinner/spinner.service';
 
 @Component({
   selector: 'app-listado-de-heroes',
@@ -22,7 +23,7 @@ export class ListadoDeHeroesComponent implements OnInit {
   form: FormGroup;
 
 
-  constructor(public heroesService: HeroesService, private router:Router, private store: Store<Appstate>, private fb: FormBuilder) {
+  constructor(public heroesService: HeroesService, private router:Router, private store: Store<Appstate>, private fb: FormBuilder, private _spinnerService: SpinnerService) {
     this.createForm();
    }
 
@@ -33,9 +34,10 @@ export class ListadoDeHeroesComponent implements OnInit {
   }
 
   submitSearch() {
-  this.heroesService.resetPager();
-    this.store.dispatch(heroeAction({texto:this.form.value.nombre}));
+    this.heroesService.resetPager();
+    this.store.dispatch(heroeAction({texto: this.form.value.nombre}));
     this.heroesService.getHeroes(this.recoveryHero);
+    this._spinnerService.closeSpinner();
   }
 
   recoverHero(){

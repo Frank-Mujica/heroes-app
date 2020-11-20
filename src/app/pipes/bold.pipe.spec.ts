@@ -5,4 +5,10 @@ describe('BoldPipe', () => {
     const pipe = new BoldPipe();
     expect(pipe).toBeTruthy();
   });
+
+  it('', () => {
+    const pipe = new BoldPipe();
+    const hero = "spiderman";
+    expect(pipe.transform(hero)).not.toBeNull();
+  });
 });

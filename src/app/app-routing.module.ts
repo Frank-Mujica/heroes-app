@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 
 const routes: Routes = [
   { path: 'component', component: AppComponent },
-  { path: '', pathMatch: 'full', redirectTo: 'listado-heroes'},
   { path: '',  loadChildren: './components/heroes/heroes.module#HeroesModule' },
 ];
 

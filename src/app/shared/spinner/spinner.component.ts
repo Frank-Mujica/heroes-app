@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { SpinnerService } from './spinner.service';
 
-@Component({
+ @Component({
   selector: 'spinner',
   templateUrl: './spinner.component.html',
   styleUrls: ['./spinner.component.css']
 })
 
 export class SpinnerComponent implements OnInit {
-  show_spinner: boolean = false;
+  spinner: boolean;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private _spinnerService: SpinnerService) {
+    this._spinnerService.returnSpinner().subscribe((spinner: boolean) => {
+      this.spinner = spinner;
+    });
   }
 
-  toggle_spinner(): void {
-    this.show_spinner = !this.show_spinner;
+  ngOnInit() {
   }
 }
